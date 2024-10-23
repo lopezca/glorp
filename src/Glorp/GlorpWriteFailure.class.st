@@ -17,7 +17,7 @@ Class {
 	#category : #'Glorp-Exceptions'
 }
 
-{ #category : #'*Glorp' }
+{ #category : #glorp }
 GlorpWriteFailure class >> mayResume [
 
 	^ true

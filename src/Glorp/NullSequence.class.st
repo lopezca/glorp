@@ -10,13 +10,13 @@ Class {
 	#category : #'Glorp-Database'
 }
 
-{ #category : #'*Glorp' }
+{ #category : #'instance creation' }
 NullSequence class >> default [
 
 	^self new.
 ]
 
-{ #category : #'*Glorp' }
+{ #category : #'instance creation' }
 NullSequence class >> new [
 
 	Singleton isNil ifTrue: [Singleton := self basicNew].

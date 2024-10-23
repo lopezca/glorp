@@ -12,7 +12,7 @@ Class {
 	#category : #'Glorp-Database'
 }
 
-{ #category : #'*Glorp' }
+{ #category : #'instance creation' }
 UniqueConstraint class >> forTable: aTable fields: aCollectionOfFields [
 
 	| instance |

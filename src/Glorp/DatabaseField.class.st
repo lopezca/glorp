@@ -31,21 +31,21 @@ Class {
 	#category : #'Glorp-Database'
 }
 
-{ #category : #'*Glorp' }
+{ #category : #'private - initialization' }
 DatabaseField class >> named: aString [
 
 	^self error: 'type needed'
 ]
 
-{ #category : #'*Glorp' }
+{ #category : #'instance creation' }
 DatabaseField class >> named: aString type: dbType [
 
-	^ super new initialize
+	^ super new
 		name: aString;
 		type: dbType
 ]
 
-{ #category : #'*Glorp' }
+{ #category : #'private - initialization' }
 DatabaseField class >> new [
 
 	^self error: 'dbType needed'

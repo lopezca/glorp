@@ -4,7 +4,7 @@ Boolean type for MySQL platform. MySQL stores boolean as tinyint(1)
 Class {
 	#name : #GlorpMySQLBooleanType,
 	#superclass : #GlorpBooleanType,
-	#category : 'Glorp-Types'
+	#category : #'Glorp-Types'
 }
 
 { #category : #converting }

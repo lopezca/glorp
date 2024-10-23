@@ -4,5 +4,5 @@ This represents a simple one to one relationship, e.g. from Person to Address. A
 Class {
 	#name : #OneToOneMapping,
 	#superclass : #RelationshipMapping,
-	#category : 'Glorp-Mappings'
+	#category : #'Glorp-Mappings'
 }

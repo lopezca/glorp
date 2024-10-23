@@ -14,7 +14,7 @@ Class {
 	#category : #'Glorp-Database'
 }
 
-{ #category : #'*Glorp' }
+{ #category : #'instance creation' }
 InMemorySequence class >> default [
 
 	^ self new

@@ -31,7 +31,7 @@ GlorpHelper class >> do: aBlock for: aCollection separatedBy: separatorBlock [
 			separatorBlock value]]
 ]
 
-{ #category : #'*Glorp' }
+{ #category : #glorp }
 GlorpHelper class >> glorpConstantExpressionClass [
 
 	^ self dialect glorpConstantExpressionClass

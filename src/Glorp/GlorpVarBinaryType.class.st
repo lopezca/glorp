@@ -14,7 +14,7 @@ Class {
 	#instVars : [
 		'width'
 	],
-	#category : 'Glorp-Types'
+	#category : #'Glorp-Types'
 }
 
 { #category : #testing }

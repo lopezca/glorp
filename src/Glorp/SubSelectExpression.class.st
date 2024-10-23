@@ -14,7 +14,7 @@ Class {
 		'query',
 		'localBase'
 	],
-	#category : 'Glorp-Expressions'
+	#category : #'Glorp-Expressions'
 }
 
 { #category : #preparing }
