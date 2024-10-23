@@ -4,7 +4,7 @@ This is the default type mapping for classes that aren't using inheritance. It i
 Class {
 	#name : #IdentityTypeMapping,
 	#superclass : #TypeMapping,
-	#category : 'Glorp-Mappings'
+	#category : #'Glorp-Mappings'
 }
 
 { #category : #testing }

@@ -11,7 +11,7 @@ Class {
 	#category : #'Glorp-Database'
 }
 
-{ #category : #'*Glorp' }
+{ #category : #'instance creation' }
 PrimaryKeyConstraint class >> forTable: aDatabaseTable fields: collDatabaseFields [
 	^self new
 		forTable: aDatabaseTable  fields: collDatabaseFields;

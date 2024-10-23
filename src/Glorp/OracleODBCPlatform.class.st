@@ -4,7 +4,7 @@ This is a platform for Oracle, as accessed through ODBC. The database doesn't ch
 Class {
 	#name : #OracleODBCPlatform,
 	#superclass : #OraclePlatform,
-	#category : 'Glorp-Platforms'
+	#category : #'Glorp-Platforms'
 }
 
 { #category : #testing }

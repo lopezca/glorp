@@ -26,7 +26,7 @@ Class {
 	#category : #'Glorp-Database'
 }
 
-{ #category : #'*Glorp' }
+{ #category : #'instance creation' }
 RowBasedCommand class >> forRow: aDatabaseRow useBinding: aBoolean session: aSession [
 
 	^ self new
@@ -36,7 +36,7 @@ RowBasedCommand class >> forRow: aDatabaseRow useBinding: aBoolean session: aSes
 		  yourself
 ]
 
-{ #category : #'*Glorp' }
+{ #category : #'instance creation' }
 RowBasedCommand class >> forRows: aCollectionOfDatabaseRows useBinding: aBoolean session: aSession [
 
 	^ self new

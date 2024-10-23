@@ -4,5 +4,5 @@ This class is obsolete, but exists only so that people using the old name will n
 Class {
 	#name : #BasicDictionaryMapping,
 	#superclass : #DictionaryMapping,
-	#category : 'Glorp-Mappings'
+	#category : #'Glorp-Mappings'
 }

@@ -9,7 +9,7 @@ Class {
 	#category : #'Glorp-Exceptions'
 }
 
-{ #category : #'*Glorp' }
+{ #category : #glorp }
 ValidationError class >> mayResume [
 
 	^ true

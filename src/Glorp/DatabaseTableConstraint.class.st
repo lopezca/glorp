@@ -14,7 +14,7 @@ Class {
 	#category : #'Glorp-Database'
 }
 
-{ #category : #'*Glorp' }
+{ #category : #'instance creation' }
 DatabaseTableConstraint class >> forTable: aDatabaseTable [
 
 	^ self new
