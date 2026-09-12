@@ -365,6 +365,22 @@ PostgresPlatform >> printDate: aDate for: aType [
 	^stream contents.
 ]
 
+{ #category : #'conversion - times' }
+PostgresPlatform >> printDate: aTimestamp isoFormatOn: stream [
+	"Print the date the way PostgreSQL does with DateStyle ISO, which is also the form it accepts as input: YYYY-MM-DD, with more digits for years after 9999, and a ' BC' suffix for years before 1 CE. PostgreSQL rejects signed years and has no year 0, so astronomical year 0 prints as 0001 BC and -43 as 0044 BC. The suffix right after the date is accepted inside timestamps too."
+	| year monthNumber dayOfMonth |
+	aTimestamp isNil ifTrue: [^'NULL'].
+	year := aTimestamp year.
+	(year > 0 ifTrue: [year] ifFalse: [1 - year]) printOn: stream base: 10 length: 4 padded: true.
+	stream nextPut: $-.
+	monthNumber := aTimestamp monthIndex.
+	stream nextPutAll: (GlorpDatabaseType padToTwoDigits: monthNumber).
+	stream nextPut: $-.
+	dayOfMonth := aTimestamp dayOfMonth.
+	stream nextPutAll: (GlorpDatabaseType padToTwoDigits: dayOfMonth).
+	year > 0 ifFalse: [stream nextPutAll: ' BC']
+]
+
 { #category : #'database - specific' }
 PostgresPlatform >> printOffset: anInteger on: aCommand [
 	aCommand
