@@ -4,7 +4,7 @@ This is a type resolver for inheritance where all of the classes are represented
 Class {
 	#name : #FilteredTypeResolver,
 	#superclass : #BasicTypeResolver,
-	#category : 'Glorp-Mappings'
+	#category : #'Glorp-Mappings'
 }
 
 { #category : #'instance creation' }

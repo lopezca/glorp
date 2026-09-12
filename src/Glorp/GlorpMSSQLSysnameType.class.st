@@ -4,7 +4,7 @@ MSSQL  Sysname type
 Class {
 	#name : #GlorpMSSQLSysnameType,
 	#superclass : #GlorpDatabaseType,
-	#category : 'Glorp-Types'
+	#category : #'Glorp-Types'
 }
 
 { #category : #converting }

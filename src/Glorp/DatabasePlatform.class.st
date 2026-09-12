@@ -2257,6 +2257,7 @@ DatabasePlatform >> toDate: anObject for: aType [
 	anObject isNil ifTrue: [^nil].
 	anObject class = Date ifTrue: [^anObject].
 	anObject isInteger ifTrue: [^anObject].
+	anObject isString ifTrue: [ ^ self readDateFromStream: (ReadStream on: anObject) for: aType ].
 	^anObject asDate
 ]
 

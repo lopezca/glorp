@@ -4,5 +4,5 @@ This is an abstract superclass for thing that generate values when objects are w
 Class {
 	#name : #GlorpDatabaseValueGenerator,
 	#superclass : #Object,
-	#category : 'Glorp-Database'
+	#category : #'Glorp-Database'
 }

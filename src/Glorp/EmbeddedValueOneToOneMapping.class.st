@@ -7,7 +7,7 @@ Class {
 	#instVars : [
 		'fieldTranslation'
 	],
-	#category : 'Glorp-Mappings'
+	#category : #'Glorp-Mappings'
 }
 
 { #category : #testing }
