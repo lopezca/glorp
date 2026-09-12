@@ -1364,10 +1364,13 @@ DatabasePlatform >> printDDLTableNameFor: aGLORPDatabaseTable on: sqlStatementSt
 
 { #category : #'conversion - times' }
 DatabasePlatform >> printDate: aTimestamp isoFormatOn: stream [
-	"Print the date as yyyy-mm-dd"
-	| monthNumber dayOfMonth |
+	"Print the date in ISO 8601 extended format, YYYY-MM-DD. Years outside 0000 to 9999 use the expanded representation, a sign and at least 4 digits (-0043-03-15, +12024-01-01). Years are astronomical: 0000 is 1 BCE."
+	| year monthNumber dayOfMonth |
 	aTimestamp isNil ifTrue: [^'NULL'].
-	aTimestamp year printOn: stream.
+	year := aTimestamp year.
+	year < 0 ifTrue: [stream nextPut: $-].
+	year > 9999 ifTrue: [stream nextPut: $+].
+	year abs printOn: stream base: 10 length: 4 padded: true.
 	stream nextPut: $-.
 	monthNumber := aTimestamp monthIndex.
 	stream nextPutAll: (GlorpDatabaseType padToTwoDigits: monthNumber).
@@ -1651,17 +1654,57 @@ DatabasePlatform >> readDate: anObject for: aType [
 
 { #category : #'conversion - times' }
 DatabasePlatform >> readDateFromStream: aStream for: aType [
-	"Seems like we get to do this ourselves, in a lowest common denominator kind of way. Translate into GMT if we've got a timezone."
-	"assumes ISO format.
-	self readTimestamp: '2003-03-03 15:29:28.337-05' for: nil.
-	self readTimestamp: '2003-03-03 19:29:28.337-05' for: nil
+	"Read an ISO 8601 calendar date in extended format, YYYY-MM-DD, and leave aStream positioned just after the day. Anything else is an error.
+	The year has exactly 4 digits (0000 to 9999), or a sign and at least 4 digits for the expanded representation (-0043, +12024). Years are astronomical: 0000 is 1 BCE, -0043 is 44 BCE.
+	After the day there may be nothing, or a time part starting with $T or a space, which is left unread.
+	Month and day ranges, leap years included, are checked by the Date itself.
+	aStream must be a positionable stream over a String: the digits are read by indexing its collection directly, which is several times faster than reading through the stream."
+	"(self new readDateFromStream: '2003-03-13' readStream for: nil) >>> (Date year: 2003 month: 3 day: 13)"
+	"(self new readDateFromStream: '2003-03-13 15:29:28.337-05' readStream for: nil) >>> (Date year: 2003 month: 3 day: 13)"
+	"(self new readDateFromStream: '-0043-03-15' readStream for: nil) >>> (Date year: -43 month: 3 day: 15)"
+	"(self new readDateFromStream: '+12024-03-15' readStream for: nil) >>> (Date year: 12024 month: 3 day: 15)"
 
-"
-	|  years months days |
-	years := (aStream upTo: $-) asNumber.
-	months := (aStream upTo: $-) asNumber.
-	days := (aStream upTo: $ ) asNumber.
-	^Dialect newDateWithYears: years months: months days: days.
+	| string limit index code digit negative signed start years month1 month2 day1 day2 |
+	string := aStream originalContents.
+	limit := aStream size.
+	index := aStream position + 1.
+	negative := signed := false.
+	index <= limit ifTrue: [
+		code := (string at: index) asInteger.
+		code = 45 "$-"
+			ifTrue: [
+				negative := signed := true.
+				index := index + 1 ]
+			ifFalse: [
+				code = 43 "$+" ifTrue: [
+					signed := true.
+					index := index + 1 ] ] ].
+	years := 0.
+	start := index.
+	[ index <= limit and: [ (digit := (string at: index) asInteger - 48) >= 0 and: [ digit <= 9 ] ] ] whileTrue: [
+		years := years * 10 + digit.
+		index := index + 1 ].
+	(signed ifTrue: [ index - start >= 4 ] ifFalse: [ index - start = 4 ]) ifFalse: [
+		^ self error: 'Invalid ISO 8601 date ' , aStream contents printString , ': the year needs exactly 4 digits, or a sign and at least 4 digits' ].
+	index + 5 <= limit ifFalse: [
+		^ self error: 'Invalid ISO 8601 date ' , aStream contents printString , ': expected -MM-DD after the year' ].
+	month1 := (string at: index + 1) asInteger - 48.
+	month2 := (string at: index + 2) asInteger - 48.
+	day1 := (string at: index + 4) asInteger - 48.
+	day2 := (string at: index + 5) asInteger - 48.
+	((string at: index) = $- and: [
+		(string at: index + 3) = $- and: [
+		(month1 between: 0 and: 9) and: [
+		(month2 between: 0 and: 9) and: [
+		(day1 between: 0 and: 9) and: [
+		day2 between: 0 and: 9 ] ] ] ] ]) ifFalse: [
+			^ self error: 'Invalid ISO 8601 date ' , aStream contents printString , ': expected -MM-DD after the year' ].
+	index := index + 6.
+	(index > limit or: [ (code := (string at: index) asInteger) = 84 "$T" or: [ code = 32 "space" ] ]) ifFalse: [
+		^ self error: 'Invalid ISO 8601 date ' , aStream contents printString , ': unexpected ' , (string at: index) printString , ' after the day' ].
+	aStream position: index - 1.
+	negative ifTrue: [ years := years negated ].
+	^ Dialect newDateWithYears: years months: month1 * 10 + month2 days: day1 * 10 + day2
 ]
 
 { #category : #'conversion - times' }
