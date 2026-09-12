@@ -7,7 +7,7 @@ Class {
 	#instVars : [
 		'shouldUseSingleQuery'
 	],
-	#category : 'Glorp-Mappings'
+	#category : #'Glorp-Mappings'
 }
 
 { #category : #'instance creation' }

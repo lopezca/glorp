@@ -4,7 +4,7 @@ This is a special subclass of ElementBuilder used when we execute a query that r
 Class {
 	#name : #SelectingElementBuilder,
 	#superclass : #ElementBuilder,
-	#category : 'Glorp-Queries'
+	#category : #'Glorp-Queries'
 }
 
 { #category : #'building objects' }

@@ -4,7 +4,7 @@ This is a trivial type resolver (and the default one) that just uses a single cl
 Class {
 	#name : #IdentityTypeResolver,
 	#superclass : #TypeResolver,
-	#category : 'Glorp-Mappings'
+	#category : #'Glorp-Mappings'
 }
 
 { #category : #accessing }
