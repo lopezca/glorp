@@ -34,6 +34,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v5
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           name: Unit-Tests-${{matrix.smalltalk}}
           token: ${{ secrets.CODECOV_TOKEN }}

@@ -40,6 +40,8 @@ jobs:
           RDBMS: ${{ matrix.rdbms }}
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v5
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           name: PostgreSQL-Integration-Tests-${{matrix.smalltalk}}
           token: ${{ secrets.CODECOV_TOKEN }}

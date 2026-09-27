@@ -35,6 +35,8 @@ jobs:
         timeout-minutes: 15
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v5
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           name: SQLite3-Integration-Tests-${{matrix.smalltalk}}
           token: ${{ secrets.CODECOV_TOKEN }}
