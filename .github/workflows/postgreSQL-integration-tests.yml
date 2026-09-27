@@ -16,8 +16,8 @@ jobs:
         smalltalk:
           - Pharo64-12
           - Pharo64-13
+          - Pharo64-14
         rdbms:
-
           - PostgreSQLv16
           - PostgreSQLv17
           - PostgreSQLv18
