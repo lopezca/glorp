@@ -3,6 +3,10 @@ on:
   - push
   - pull_request
   - workflow_dispatch
+
+permissions:
+  contents: read
+
 jobs:
    build:
     runs-on: ubuntu-latest
@@ -17,7 +21,7 @@ jobs:
           - Pharo64-13
     name: ${{ matrix.smalltalk }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Install SQLite3
         run: ./scripts/install-SQLite3.sh
       - name: Set up Smalltalk CI
