@@ -3,6 +3,10 @@ on:
   - push
   - pull_request
   - workflow_dispatch
+
+permissions:
+  contents: read
+
 jobs:
    build:
     runs-on: ubuntu-latest
@@ -10,15 +14,12 @@ jobs:
       fail-fast: false
       matrix:
         smalltalk:
-          - Pharo64-8.0
-          - Pharo64-9.0
-          - Pharo64-10
-          - Pharo64-11
           - Pharo64-12
           - Pharo64-13
+          - Pharo64-14
     name: ${{ matrix.smalltalk }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Set up Smalltalk CI
         uses: hpi-swa/setup-smalltalkCI@v1
         with:
@@ -29,7 +30,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Upload coverage to Codecov
+        if: ${{ !cancelled() }}
         uses: codecov/codecov-action@v5
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           name: Unit-Tests-${{matrix.smalltalk}}
           token: ${{ secrets.CODECOV_TOKEN }}

@@ -9,7 +9,7 @@ SmalltalkCISpec {
     SCIMetacelloLoadSpec {
       #baseline : 'P3',
       #load : [ 'glorp' ],
-      #repository: 'github://svenvc/P3:master/',
+      #repository: 'github://panalcloud/P3:local-main/',
       #platforms : [  #pharo ],
       #onConflict : #useLoaded
     }
@@ -23,5 +23,4 @@ SmalltalkCISpec {
       #format: #lcov
       }
     }
-  }
 }

@@ -9,7 +9,7 @@ SmalltalkCISpec {
     SCIMetacelloLoadSpec {
       #baseline : 'SQLite3',
       #load : [ 'glorp' , 'SQLite3-Glorp-Tests' ],
-      #repository: 'github://pharo-rdbms/Pharo-SQLite3:master/',
+      #repository: 'github://panalcloud/Pharo-SQLite3:master/',
       #platforms : [  #pharo ],
       #onConflict : #useLoaded
     }
@@ -23,5 +23,4 @@ SmalltalkCISpec {
       #format: #lcov
       }
     }
-  }
 }

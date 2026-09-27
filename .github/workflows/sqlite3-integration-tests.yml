@@ -3,6 +3,10 @@ on:
   - push
   - pull_request
   - workflow_dispatch
+
+permissions:
+  contents: read
+
 jobs:
    build:
     runs-on: ubuntu-latest
@@ -10,14 +14,12 @@ jobs:
       fail-fast: false
       matrix:
         smalltalk:
-          - Pharo64-9.0
-          - Pharo64-10
-          - Pharo64-11
           - Pharo64-12
           - Pharo64-13
+          - Pharo64-14
     name: ${{ matrix.smalltalk }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Install SQLite3
         run: ./scripts/install-SQLite3.sh
       - name: Set up Smalltalk CI
@@ -30,7 +32,10 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         timeout-minutes: 15
       - name: Upload coverage to Codecov
+        if: ${{ !cancelled() }}
         uses: codecov/codecov-action@v5
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           name: SQLite3-Integration-Tests-${{matrix.smalltalk}}
           token: ${{ secrets.CODECOV_TOKEN }}
